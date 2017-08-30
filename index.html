@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+	<!-- Load c3.css -->
+	<link href="c3.css" rel="stylesheet">
+
+	<!-- Load d3.js and c3.js -->
+	<script src="d3.v3.min.js" charset="utf-8"></script>
+	<script src="c3.min.js"></script>
+  
+</head>
+<body>
+
+<div class="container">
+  <br>
+  <div class="row">
+	<div class="col-md-6" style="background:cyan;min-height:50px;">
+		<div id="chart"></div>
+	</div>
+	<div class="col-md-6" style="background:orange;min-height:50px;">
+		<div id="chartOne"></div>
+	</div>
+  </div>
+</div>
+
+<script>
+	$(document).ready(function(){
+		<!-- alert('sdf'); -->
+		loadGraph1();
+		loadGraph2();
+	});
+	<!-- type 3 json url -->
+	function loadGraph1(){
+		d3.json("data/c3_test.json", function(data){
+			console.log(data);
+			var modData = [];
+			data.datas.forEach(function(d, i){
+				var item = ["param-" + d.param];
+				d.val.forEach(function(j) {
+					item.push(j);
+				});
+				modData.push(item);
+			});
+			var chart = c3.generate({
+				data: {
+					type: 'bar',
+					columns: modData
+				},
+				bindto: '#chart'
+			});
+		});
+	}
+	function loadGraph2(){
+		d3.json("data/c3_test.json", function(data){
+			console.log(data);
+			var modData = [];
+			data.datas.forEach(function(d, i){
+				var item = ["param-" + d.param];
+				d.val.forEach(function(j) {
+					item.push(j);
+				});
+				modData.push(item);
+			});
+			var chart = c3.generate({
+				data: {
+					columns: modData
+				},
+				bindto: '#chartOne'
+			});
+		});
+	}
+	
+	
+	<!-- d3.json("data/c3_test.json", function(result){ -->
+		<!-- console.log(result); -->
+		<!-- var dynData = []; -->
+		<!-- result.dataSet.forEach(function(d, i){ -->
+			<!-- var item = ["param-" + d.param]; -->
+			<!-- d.val.forEach(function(j) { -->
+				<!-- item.push(j); -->
+			<!-- }); -->
+			<!-- dynData.push(item); -->
+		<!-- }); -->
+		<!-- var chart = c3.generate({ -->
+			<!-- data: { -->
+				<!-- type: 'line', -->
+				<!-- columns: dynData -->
+			<!-- } -->
+		<!-- }); -->
+	<!-- }); -->
+</script>
+
+</body>
+</html>
